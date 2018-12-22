@@ -1,27 +1,22 @@
-/* eslint no-underscore-dangle: [2, { "allow": ["_array", "_cursor"] }] */
-/* eslint max-len: ["error", { "code": 150 }] */
+/* eslint no-restricted-syntax:
+  ["error", "FunctionExpression", "WithStatement", "BinaryExpression[operator='in']"] */
 
-class IteratorFromArray {
-  constructor(arr) {
-    this._array = arr;
-    this._cursor = 0;
-  }
-
-  next() {
-    const result = this._cursor < this._array.length ? { value: this._array[this._cursor], done: false } : { done: true };
-    this._cursor += 1;
-    return result;
+function* getNumbers(words) {
+  for (const word of words) {
+    if (/^[0-9]+$/.test(word)) {
+      yield parseInt(word, 10);
+    }
   }
 }
 
-const arr = [1, 2, 3];
+const iterator = getNumbers('30 天精通 RxJS (04)');
 
-const iterator = new IteratorFromArray(arr);
+console.log(iterator.next()); // 3
 
-console.log(iterator.next());
+console.log(iterator.next()); // 0
 
-console.log(iterator.next());
+console.log(iterator.next()); // 0
 
-console.log(iterator.next());
+console.log(iterator.next()); // 4
 
-console.log(iterator.next());
+console.log(iterator.next()); // undefined
