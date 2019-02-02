@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 function Producer() {
   if (!(this instanceof Producer)) {
     throw new Error("Class constructor Producer cannot be invoked without 'new'");
