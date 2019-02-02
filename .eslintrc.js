@@ -1,5 +1,5 @@
 module.exports = {
-  // parser: 'esprima',
+  parser: 'esprima',
   parserOptions: {
     ecmaVersion: 6,
     // sourceType: 'script',
