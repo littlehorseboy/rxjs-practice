@@ -56,8 +56,8 @@ console.log(idAndTitle2);
 Array.prototype.map2 = function map2(callback) {
   const result = [];
 
-  this.forEach((el, index) => {
-    result.push(callback(el, index));
+  this.forEach((element, index) => {
+    result.push(callback(element, index));
   });
 
   return result;

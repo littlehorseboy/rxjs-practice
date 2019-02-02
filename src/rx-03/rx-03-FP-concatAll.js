@@ -53,9 +53,10 @@ const user = {
 
 const allCourseIds = [];
 
-user.courseLists.forEach((list) => {
-  list.courses.filter(item => item.rating === 5).forEach(item => allCourseIds.push(item));
-});
+user.courseLists
+  .forEach((list) => {
+    list.courses.filter(item => item.rating === 5).forEach(item => allCourseIds.push(item));
+  });
 
 console.log(allCourseIds);
 

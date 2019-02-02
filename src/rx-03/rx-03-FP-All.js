@@ -140,12 +140,13 @@ Array.prototype.concatAll = function concatAll() {
 };
 
 const result = courseLists
-  .map(courseList => courseList.courses
+  .map(list => list.courses
     .map(course => course.covers
-      .filter(cover => cover.width === 150).map(item => ({
+      .filter(cover => cover.width === 150)
+      .map(cover => ({
         id: course.id,
         title: course.title,
-        cover: item.url,
+        cover: cover.url,
       })))
     .concatAll())
   .concatAll();

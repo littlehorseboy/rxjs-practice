@@ -1,9 +1,9 @@
-const arr = ['Jerry', 'Anna'];
+const array = ['Jerry', 'Anna'];
 
-for (let i = 0; i < arr.length; i += 1) {
-  console.log(arr[i]);
+for (let i = 0; i < array.length; i += 1) {
+  console.log(array[i]);
 }
 
 console.log('================================');
 
-arr.forEach(item => console.log(item));
+array.forEach(item => console.log(item));
