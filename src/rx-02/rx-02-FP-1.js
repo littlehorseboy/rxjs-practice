@@ -1,24 +1,19 @@
 /*
-  30 天精通 RxJS (02)： Functional Programming 基本觀念
+  30 天精通 RxJS(02)： Functional Programming 基本觀念
 */
 
-const findIndex = (arr, predicate, start = 0) => {
-  if (start >= 0 && start < arr.length) {
-    if (predicate(arr[start])) {
-      return start;
-    }
-    return findIndex(arr, predicate, start + 1);
-  }
-  return -1;
-};
+const someNumber = 5 + 6 - 1 * 3;
+console.log(someNumber);
 
-const a = findIndex(['a', 'b'], x => x === 'b');
-console.log(a);
+const add = (a, b) => a + b;
+const sub = (a, b) => a - b;
+const mul = (a, b) => a * b;
 
-console.log(['a', 'b'].indexOf('b'));
+const someResult = sub(add(5, 6), mul(1, 3));
+console.log(someResult);
 
-const b = [9, 4].concat([7, 8]).filter(x => x > 5);
-console.log(b);
+const func = a => b => a + b;
 
-const c = [9, 4].concat([7, 8]).sort().filter(x => x > 5);
-console.log(c);
+const func1 = func(5);
+console.log(func1);
+console.log(func1(6));
