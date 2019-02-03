@@ -1,9 +1,8 @@
 /* global Rx */
 
-const source = Rx.Observable.interval(500).take(3);
-const source2 = Rx.Observable.interval(300).take(6);
+const source = Rx.Observable.interval(1000);
 
-const newest = Rx.Observable.merge(source, source2);
+const newest = source.take(3);
 
 newest.subscribe({
   next(value) {

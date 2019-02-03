@@ -1,9 +1,8 @@
 /* global Rx */
 
-const source = Rx.Observable.interval(500).take(3);
-const source2 = Rx.Observable.interval(300).take(6);
-
-const newest = Rx.Observable.merge(source, source2);
+const click = Rx.Observable.fromEvent(document.body, 'click');
+const source = click.map(() => Rx.Observable.of(1, 2, 3));
+const newest = source.concatAll();
 
 newest.subscribe({
   next(value) {
