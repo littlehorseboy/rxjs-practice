@@ -1,6 +1,6 @@
-/* global rxjs */
+/* global Rx */
 
-const observable = rxjs.Observable.create((observer) => {
+const observable = Rx.Observable.create((observer) => {
   observer.next('Jerry');
   observer.next('Anna');
 });

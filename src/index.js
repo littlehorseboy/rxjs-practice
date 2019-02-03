@@ -1,17 +1,18 @@
-/*
-  30 天精通 RxJS(02)： Functional Programming 基本觀念
-*/
-
-// const handler = (e) => {
-//   console.log(e);
-//   document.body.removeEventListener('click', handler);
-// };
-
-// document.body.addEventListener('click', handler);
-
 /* global Rx */
 
-Rx.Observable
-  .fromEvent(document.body, 'click')
-  .take(1)
-  .subscribe(console.log);
+const observable = Rx.Observable.create((observer) => {
+  observer.next('Jerry');
+  observer.next('Anna');
+
+  setTimeout(() => {
+    observer.next('RxJS');
+  }, 30);
+});
+
+console.log('start');
+
+observable.subscribe((value) => {
+  console.log(value);
+});
+
+console.log('end');
