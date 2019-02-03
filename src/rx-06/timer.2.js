@@ -1,8 +1,8 @@
 /* global Rx */
 
-const source = Rx.Observable.timer(1000, 2000);
+const source = Rx.Observable.timer(3000);
 
-const subscription = source.subscribe({
+source.subscribe({
   next(value) {
     console.log(value);
   },
@@ -13,7 +13,3 @@ const subscription = source.subscribe({
     console.log('complete');
   },
 });
-
-setTimeout(() => {
-  subscription.unsubscribe();
-}, 6000);
