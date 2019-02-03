@@ -1,16 +1,18 @@
-/* global rxjs */
+/* global Rx */
 
-const observable = rxjs.Observable.create((observer) => {
-  observer.next('Jerry');
-  observer.next('Anna');
-  observer.complete();
-
+const observable = Rx.Observable.create((observer) => {
+  // 非同步會在 complete 後調用 next() 不會有用處
   setTimeout(() => {
     observer.next('RxJS');
   }, 30);
-});
 
-console.log('start');
+  observer.next('Jerry');
+  observer.next('Anna');
+
+  observer.complete();
+
+  observer.next('not work');
+});
 
 observable.subscribe({
   next(value) {
@@ -23,5 +25,3 @@ observable.subscribe({
     console.log('complete');
   },
 });
-
-console.log('end');

@@ -1,18 +1,38 @@
 /* global Rx */
 
-const observable = Rx.Observable.create((observer) => {
+const observable = Rx.Observable
+  .create((observer) => {
+    observer.next('Jerry');
+    observer.next('Anna');
+  });
+
+observable.subscribe({
+  next(value) {
+    console.log(value);
+  },
+  error(error) {
+    console.log(error);
+  },
+  complete() {
+    console.log('complete');
+  },
+});
+
+// 類似的感覺
+
+function subscribe(observer) {
   observer.next('Jerry');
   observer.next('Anna');
+}
 
-  setTimeout(() => {
-    observer.next('RxJS');
-  }, 30);
+subscribe({
+  next(value) {
+    console.log(value);
+  },
+  error(error) {
+    console.log(error);
+  },
+  complete() {
+    console.log('complete');
+  },
 });
-
-console.log('start');
-
-observable.subscribe((value) => {
-  console.log(value);
-});
-
-console.log('end');

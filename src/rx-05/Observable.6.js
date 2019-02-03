@@ -1,26 +1,38 @@
-/* global rxjs */
+/* global Rx */
 
-const observable = rxjs.Observable.create((observer) => {
-  try {
+const observable = Rx.Observable
+  .create((observer) => {
     observer.next('Jerry');
     observer.next('Anna');
-    // throw new Error('some exception');
-    observer.complete();
-    observer.next('Unreachable code');
-  } catch (e) {
-    observer.error(e);
-  }
-  setTimeout(() => {
-    observer.next('RxJS');
-  }, 30);
+  });
+
+observable.subscribe({
+  next(value) {
+    console.log(value);
+  },
+  error(error) {
+    console.log(error);
+  },
+  complete() {
+    console.log('complete');
+  },
 });
 
-console.log('start');
+// 類似的感覺
 
-observable.subscribe(
-  (value) => { console.log(value); },
-  (error) => { console.error(error); },
-  () => { console.log('complete'); },
-);
+function subscribe(observer) {
+  observer.next('Jerry');
+  observer.next('Anna');
+}
 
-console.log('end');
+subscribe({
+  next(value) {
+    console.log(value);
+  },
+  error(error) {
+    console.log(error);
+  },
+  complete() {
+    console.log('complete');
+  },
+});

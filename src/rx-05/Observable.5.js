@@ -1,6 +1,10 @@
-/* global rxjs */
+/* global Rx */
 
-const observable = rxjs.Observable.create((observer) => {
+const observable = Rx.Observable.create((observer) => {
+  setTimeout(() => {
+    observer.next('RxJS');
+  }, 30);
+
   try {
     observer.next('Jerry');
     observer.next('Anna');
@@ -9,23 +13,17 @@ const observable = rxjs.Observable.create((observer) => {
   } catch (e) {
     observer.error(e);
   }
-  setTimeout(() => {
-    observer.next('RxJS');
-  }, 30);
+  observer.next('Unreachable code');
 });
 
-console.log('start');
-
-observable.subscribe({
-  next(value) {
+observable.subscribe(
+  (value) => {
     console.log(value);
   },
-  error(error) {
+  (error) => {
     console.error(error);
   },
-  complete() {
+  () => {
     console.log('complete');
   },
-});
-
-console.log('end');
+);
