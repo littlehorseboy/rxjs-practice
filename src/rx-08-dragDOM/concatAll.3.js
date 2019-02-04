@@ -1,7 +1,11 @@
 /* global Rx */
 
-const click = Rx.Observable.fromEvent(document.body, 'click');
-const source = click.map(() => Rx.Observable.interval(1000).take(3));
+const obs1 = Rx.Observable.interval(1000).take(5);
+const obs2 = Rx.Observable.interval(500).take(2);
+const obs3 = Rx.Observable.interval(2000).take(1);
+
+const source = Rx.Observable.of(obs1, obs2, obs3);
+
 const newest = source.concatAll();
 
 newest.subscribe({

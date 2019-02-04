@@ -2,7 +2,7 @@
 
 const click = Rx.Observable.fromEvent(document.body, 'click');
 const source = click.map(() => Rx.Observable.interval(1000).take(3));
-const newest = source.concatAll();
+const newest = source.mergeAll();
 
 newest.subscribe({
   next(value) {
