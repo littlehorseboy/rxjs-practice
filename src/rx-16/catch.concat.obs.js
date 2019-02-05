@@ -10,7 +10,8 @@ const source = Rx.Observable.from(['a', 'b', 'c', 'd', 2, 'e'])
 
 const newest = source
   .catch((error, obs) => Rx.Observable.empty()
-    .startWith('連線發生錯誤: 3秒後重連'));
+    .startWith('連線發生錯誤: 3秒後重連')
+    .concat(obs.delay(3000)));
 
 newest.subscribe({
   next(value) {
