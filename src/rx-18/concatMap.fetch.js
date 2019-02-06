@@ -2,11 +2,9 @@
 
 const click = Rx.Observable.fromEvent(document.body, 'click');
 
-const source = click.mergeMap(
+const source = click.concatMap(
   () => Rx.Observable.from(fetch('https://jsonplaceholder.typicode.com/posts')
     .then(res => res.json())),
-  (e, res) => res.map(obj => obj.title),
-  3,
 );
 
 source.subscribe({
