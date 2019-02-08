@@ -81,4 +81,4 @@ selectItem
   .subscribe((text) => {
     input.value = text;
     render();
-  })
+  });
