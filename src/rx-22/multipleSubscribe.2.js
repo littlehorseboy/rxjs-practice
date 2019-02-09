@@ -1,6 +1,6 @@
-/* global Rx */
+/* global Rx, _ */
 
-const source = Rx.Observable.interval(1000).take(3);
+const source = Rx.Observable.interval(_.random(1, 3) * 1000).take(_.random(2, 5));
 
 const observerA = {
   next(value) {
@@ -26,13 +26,8 @@ const observerB = {
   },
 };
 
-const subject = new Rx.Subject();
-
-subject.subscribe(observerA);
-
-source.subscribe(subject);
+source.subscribe(observerA);
 
 setTimeout(() => {
-  subject.subscribe(observerB);
+  source.subscribe(observerB);
 }, 1000);
-// }, 5000);

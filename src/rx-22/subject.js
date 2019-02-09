@@ -26,7 +26,21 @@ const observerB = {
   },
 };
 
-const subject = new Rx.Subject();
+const subject = {
+  observers: [],
+  subscribe(observer) {
+    this.observers.push(observer);
+  },
+  next(value) {
+    this.observers.forEach(o => o.next(value));
+  },
+  error(error) {
+    this.observers.forEach(o => o.error(error));
+  },
+  complete() {
+    this.observers.forEach(o => o.complete());
+  },
+};
 
 subject.subscribe(observerA);
 
