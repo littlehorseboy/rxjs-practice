@@ -15,6 +15,5 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
     "esprima": "^4.0.1"
-  },
-  "dependencies": {}
+  }
 }
