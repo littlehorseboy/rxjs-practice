@@ -1,38 +1,41 @@
 /* global Rx */
 
-const source = Rx.Observable.interval(1000).take(3);
+const dragDOM = document.createElement('div');
+dragDOM.style.width = '200px';
+dragDOM.style.height = '200px';
+dragDOM.style.backgroundColor = 'red';
+dragDOM.style.position = 'absolute';
+dragDOM.style.top = '5%';
+dragDOM.style.left = '5%';
 
-const observerA = {
-  next(value) {
-    console.log(`A next: ${value}`);
-  },
-  error(error) {
-    console.log(`A next: ${error}`);
-  },
-  complete() {
-    console.log('A complete!');
-  },
-};
+const dragDOMTitle = document.createElement('div');
+dragDOMTitle.style.backgroundColor = 'blue';
+dragDOMTitle.style.fontSize = '20px';
+dragDOMTitle.style.cursor = 'all-scroll';
 
-const observerB = {
-  next(value) {
-    console.log(`B next: ${value}`);
-  },
-  error(error) {
-    console.log(`B next: ${error}`);
-  },
-  complete() {
-    console.log('B complete!');
-  },
-};
+dragDOMTitle.innerHTML = `
+  <span>Title</span>
+  <span style="float: right;">X</span>
+`;
 
-const subject = new Rx.Subject();
+dragDOM.appendChild(dragDOMTitle);
 
-subject.subscribe(observerA);
+document.body.appendChild(dragDOM);
 
-source.subscribe(subject);
+const validValue = (value, max, min) => Math.min(Math.max(value, min), max);
 
-setTimeout(() => {
-  subject.subscribe(observerB);
-}, 1000);
-// }, 5000);
+const mouseDown = Rx.Observable.fromEvent(dragDOMTitle, 'mousedown');
+const mouseUp = Rx.Observable.fromEvent(document.body, 'mouseup');
+const mouseMove = Rx.Observable.fromEvent(document.body, 'mousemove');
+
+mouseDown
+  .map(() => mouseMove.takeUntil(mouseUp))
+  .concatAll()
+  .withLatestFrom(mouseDown, (move, down) => ({
+    x: validValue(move.clientX - down.offsetX, window.innerWidth - dragDOM.clientWidth, 0),
+    y: validValue(move.clientY - down.offsetY, window.innerHeight - dragDOM.clientHeight, 0),
+  }))
+  .subscribe((pos) => {
+    dragDOM.style.left = `${pos.x}px`;
+    dragDOM.style.top = `${pos.y}px`;
+  });
